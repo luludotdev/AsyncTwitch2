@@ -78,5 +78,23 @@ namespace AsyncTwitch.Models
             VIP = _vip;
             Badges = _badges;
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("-- Chat User --");
+            sb.AppendLine($"Username: {Username}");
+            sb.AppendLine($"Display Name: {DisplayName}");
+            sb.AppendLine($"User ID: {ID}");
+            sb.AppendLine($"Chat Color: {Color}");
+            sb.AppendLine($"Is Moderator: {Moderator}");
+            sb.AppendLine($"Is Broadcaster: {Broadcaster}");
+            sb.AppendLine($"Is Subscriber: #{Subscriber}");
+            sb.AppendLine($"Is VIP: #{VIP}");
+            sb.AppendLine($"# of Badges: #{Badges.Length}");
+
+            return sb.ToString();
+        }
     }
 }

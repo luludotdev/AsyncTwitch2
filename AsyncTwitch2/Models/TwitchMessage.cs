@@ -57,18 +57,30 @@ namespace AsyncTwitch.Models
             RawMessage = _rawMessage;
         }
 
+        public TwitchMessage(string _content, string _rawMessage)
+        {
+            Content = _content;
+            Author = new ChatUser();
+            Cheer = false;
+            CheerAmount = -1;
+            Emotes = new Emote[0];
+            ID = "";
+            Room = new RoomState();
+            RawMessage = _rawMessage;
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("-- Twitch Message --");
             sb.AppendLine($"Content: {Content}");
-            sb.AppendLine($"Author: {Author}");
+            sb.AppendLine($"Author: {Author.DisplayName}");
             sb.AppendLine($"Is Cheer: {CheerAmount}");
             sb.AppendLine($"Cheer Amount: {CheerAmount}");
             sb.AppendLine($"# of Emotes: {Emotes.Length}");
             sb.AppendLine($"Message ID: {ID}");
-            sb.AppendLine($"Room: {Room}");
+            sb.AppendLine($"Room: #{Room.Name}");
 
             return sb.ToString();
         }
