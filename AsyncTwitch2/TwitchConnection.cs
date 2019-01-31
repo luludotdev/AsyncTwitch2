@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using WebSocketSharp;
+using AsyncTwitch.Models;
 
 namespace AsyncTwitch
 {
@@ -90,6 +91,18 @@ namespace AsyncTwitch
 
                 return;
             }
+
+            bool valid = Parsers.ValidRawMessage(message);
+            if (!valid)
+            {
+                Plugin.Debug($"Unhandled message: {message}");
+                return;
+            }
+
+            RawMessage rawMessage = Parsers.ParseRawMessage(message);
+            Plugin.Debug($"Hostname: {rawMessage.Hostname}");
+            Plugin.Debug($"Channel Name: {rawMessage.ChannelName}");
+            Plugin.Debug($"Type: {rawMessage.Type}");
         }
     }
 }
