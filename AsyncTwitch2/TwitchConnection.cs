@@ -9,7 +9,8 @@ namespace AsyncTwitch
     {
         public static TwitchConnection Instance;
 
-        public static WebSocket _ws;
+        private static WebSocket _ws;
+        private static System.Random _random = new System.Random();
 
         public static void OnLoad()
         {
@@ -32,8 +33,23 @@ namespace AsyncTwitch
                 Plugin.Debug("WebSocket Connection Opened");
 
                 _ws.Send("CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership");
-                _ws.Send("NICK justinfan123456");
-                _ws.Send("PASS bfuyesfhgkesl");
+                
+                if (Config.Username == "" || Config.OAuthKey == "")
+                {
+                    int id = _random.Next(10000, 1000000);
+
+                    _ws.Send($"NICK justinfan{id}");
+                    _ws.Send($"PASS {id}");
+                }
+                else
+                {
+                    _ws.Send($"NICK {Config.Username}");
+                    _ws.Send($"PASS {Config.OAuthKey}");
+                }
+
+                string channel = Config.ChannelName == "" ? Config.Username : Config.ChannelName;
+                if (channel != "")
+                    _ws.Send($"JOIN #{channel}");
             };
 
             _ws.OnClose += (sender, ev) =>
