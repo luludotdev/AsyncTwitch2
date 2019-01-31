@@ -100,9 +100,12 @@ namespace AsyncTwitch
             }
 
             RawMessage rawMessage = Parsers.ParseRawMessage(message);
-            Plugin.Debug($"Hostname: {rawMessage.Hostname}");
-            Plugin.Debug($"Channel Name: {rawMessage.ChannelName}");
-            Plugin.Debug($"Type: {rawMessage.Type}");
+            
+            if (rawMessage.Type == "PRIVMSG")
+            {
+                var x = Parsers.ParseTwitchMessage(message);
+                Console.WriteLine(x);
+            }
         }
     }
 }

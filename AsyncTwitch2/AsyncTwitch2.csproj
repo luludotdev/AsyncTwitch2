@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Misc\Extensions.cs" />
     <Compile Include="Models\ChatBadge.cs" />
     <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Models\Emote.cs" />
