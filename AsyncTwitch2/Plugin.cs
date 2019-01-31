@@ -29,6 +29,7 @@ namespace AsyncTwitch
 
         public void OnApplicationStart()
         {
+            Config.Generate();
             TwitchConnection.OnLoad();
         }
 
