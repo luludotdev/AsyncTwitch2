@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +38,7 @@ namespace AsyncTwitch
 
                 _ws.Send("CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership");
                 
-                if (Config.Username == "" || Config.OAuthKey == "")
+                if (Config.Username == string.Empty || Config.OAuthKey == string.Empty)
                 {
                     int id = _random.Next(10000, 1000000);
 
@@ -51,8 +51,8 @@ namespace AsyncTwitch
                     _ws.Send($"PASS {Config.OAuthKey}");
                 }
 
-                string channel = Config.ChannelName == "" ? Config.Username : Config.ChannelName;
-                if (channel != "")
+                string channel = Config.ChannelName == string.Empty ? Config.Username : Config.ChannelName;
+                if (channel != string.Empty)
                     _ws.Send($"JOIN #{channel}");
             };
 
