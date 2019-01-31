@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -65,7 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Models\ChatBadge.cs" />
+    <Compile Include="Models\ChatUser.cs" />
+    <Compile Include="Models\Emote.cs" />
     <Compile Include="Models\RawMessage.cs" />
+    <Compile Include="Models\RoomState.cs" />
+    <Compile Include="Models\TwitchMessage.cs" />
     <Compile Include="Parsers.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="TwitchConnection.cs" />
