@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IllusionPlugin;
 
 namespace AsyncTwitch
 {
     class Plugin : IPlugin
     {
+        #region Metadata
         public static string PluginName = "AsyncTwitch";
         public static string PluginVersion = "2.0.0";
 
         public string Name => PluginName;
         public string Version => PluginVersion;
+        #endregion
 
+        #region Logging
         public static void Log(object data)
         {
             Console.WriteLine($"[{PluginName}] {data}");
@@ -26,6 +25,7 @@ namespace AsyncTwitch
             Console.WriteLine($"[{PluginName}] {data}");
 #endif
         }
+        #endregion
 
         public void OnApplicationStart()
         {
@@ -33,6 +33,7 @@ namespace AsyncTwitch
             TwitchConnection.OnLoad();
         }
 
+        #region Unused
         public void OnApplicationQuit() { }
 
         public void OnLevelWasInitialized(int level) { }
@@ -42,5 +43,6 @@ namespace AsyncTwitch
         public void OnUpdate() { }
 
         public void OnFixedUpdate() { }
+        #endregion
     }
 }

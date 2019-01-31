@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
 using AsyncTwitch.Models;
@@ -13,6 +14,8 @@ namespace AsyncTwitch
         private static WebSocket _ws;
         private static System.Random _random = new System.Random();
 
+        public static Dictionary<string, RoomState> RoomStates = new Dictionary<string, RoomState>();
+
         public static void OnLoad()
         {
             if (Instance != null)
@@ -25,7 +28,7 @@ namespace AsyncTwitch
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            Plugin.Debug("Created AsyncTwitch Gameobject");
+            Plugin.Debug("Created AsyncTwitch GameObject");
 
             _ws = new WebSocket("wss://irc-ws.chat.twitch.tv");
 
@@ -69,6 +72,7 @@ namespace AsyncTwitch
 
             string message = ev.Data.TrimEnd();
 
+            #region Debug Printing
 #if DEBUG
             string[] lines = message
                 .Split('\n')
@@ -83,6 +87,7 @@ namespace AsyncTwitch
 
             Console.WriteLine(string.Join("\n", lines));
 #endif
+            #endregion
 
             if (message.StartsWith("PING"))
             {

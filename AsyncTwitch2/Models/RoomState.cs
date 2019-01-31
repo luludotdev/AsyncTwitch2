@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace AsyncTwitch.Models
@@ -67,7 +66,6 @@ namespace AsyncTwitch.Models
             SlowMode = _slowMode;
             R9K = _r9k;
             Users = new List<ChatUser>();
-
         }
 
         public RoomState(string _name, string _roomID, string _language, bool _emoteOnly, bool _subsOnly, int _followersOnly, int _slowMode, bool _r9k, List<ChatUser> _users)
