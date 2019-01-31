@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using WebSocketSharp;
 using AsyncTwitch.Models;
+using AsyncTwitch.Handlers;
 
 namespace AsyncTwitch
 {
@@ -14,7 +16,15 @@ namespace AsyncTwitch
         private static WebSocket _ws;
         private static System.Random _random = new System.Random();
 
-        public static Dictionary<string, RoomState> RoomStates = new Dictionary<string, RoomState>();
+        public static Dictionary<string, Models.RoomState> RoomStates = new Dictionary<string, Models.RoomState>();
+
+        #region Events
+
+        public static UnityAction<TwitchConnection> OnConnected;
+        public static UnityAction<TwitchConnection, TwitchMessage> OnMessage;
+        public static UnityAction<TwitchConnection, string> OnRawMessage;
+
+        #endregion
 
         public static void OnLoad()
         {
@@ -54,6 +64,8 @@ namespace AsyncTwitch
                 string channel = Config.ChannelName == string.Empty ? Config.Username : Config.ChannelName;
                 if (channel != string.Empty)
                     _ws.Send($"JOIN #{channel}");
+
+                OnConnected?.Invoke(this);
             };
 
             _ws.OnClose += (sender, ev) =>
@@ -97,6 +109,8 @@ namespace AsyncTwitch
                 return;
             }
 
+            OnRawMessage?.Invoke(this, message);
+
             bool valid = Parsers.ValidRawMessage(message);
             if (!valid)
             {
@@ -106,10 +120,17 @@ namespace AsyncTwitch
 
             RawMessage rawMessage = Parsers.ParseRawMessage(message);
             
-            if (rawMessage.Type == "PRIVMSG")
+            switch (rawMessage.Type)
             {
-                var x = Parsers.ParseTwitchMessage(message);
-                Console.WriteLine(x);
+                case "PRIVMSG":
+                    PrivMsg.Handle(rawMessage);
+                    return;
+                case "ROOMSTATE":
+                    Handlers.RoomState.Handle(rawMessage);
+                    return;
+                default:
+                    Plugin.Debug($"Unhandled message: {message}");
+                    break;
             }
         }
     }
