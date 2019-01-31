@@ -90,9 +90,9 @@ namespace AsyncTwitch.Models
             sb.AppendLine($"Chat Color: {Color}");
             sb.AppendLine($"Is Moderator: {Moderator}");
             sb.AppendLine($"Is Broadcaster: {Broadcaster}");
-            sb.AppendLine($"Is Subscriber: #{Subscriber}");
-            sb.AppendLine($"Is VIP: #{VIP}");
-            sb.AppendLine($"# of Badges: #{Badges.Length}");
+            sb.AppendLine($"Is Subscriber: {Subscriber}");
+            sb.AppendLine($"Is VIP: {VIP}");
+            sb.Append($"# of Badges: {Badges.Length}");
 
             return sb.ToString();
         }

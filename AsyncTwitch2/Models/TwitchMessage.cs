@@ -36,6 +36,11 @@ namespace AsyncTwitch.Models
         public string ID;
 
         /// <summary>
+        /// Timestamp for when this message was sent.
+        /// </summary>
+        public DateTime Timestamp;
+
+        /// <summary>
         /// Room state info for the channel in which this message was sent.
         /// </summary>
         public RoomState Room;
@@ -45,7 +50,7 @@ namespace AsyncTwitch.Models
         /// </summary>
         public string RawMessage;
 
-        public TwitchMessage(string _content, ChatUser _author, bool _cheer, int _cheerAmount, Emote[] _emotes, string _id, RoomState _room, string _rawMessage)
+        public TwitchMessage(string _content, ChatUser _author, bool _cheer, int _cheerAmount, Emote[] _emotes, string _id, DateTime _timestamp, RoomState _room, string _rawMessage)
         {
             Content = _content;
             Author = _author;
@@ -53,6 +58,7 @@ namespace AsyncTwitch.Models
             CheerAmount = _cheerAmount;
             Emotes = _emotes;
             ID = _id;
+            Timestamp = _timestamp;
             Room = _room;
             RawMessage = _rawMessage;
         }
@@ -65,6 +71,7 @@ namespace AsyncTwitch.Models
             CheerAmount = -1;
             Emotes = new Emote[0];
             ID = "";
+            Timestamp = DateTime.UtcNow;
             Room = new RoomState();
             RawMessage = _rawMessage;
         }
@@ -76,11 +83,12 @@ namespace AsyncTwitch.Models
             sb.AppendLine("-- Twitch Message --");
             sb.AppendLine($"Content: {Content}");
             sb.AppendLine($"Author: {Author.DisplayName}");
-            sb.AppendLine($"Is Cheer: {CheerAmount}");
+            sb.AppendLine($"Is Cheer: {Cheer}");
             sb.AppendLine($"Cheer Amount: {CheerAmount}");
             sb.AppendLine($"# of Emotes: {Emotes.Length}");
             sb.AppendLine($"Message ID: {ID}");
-            sb.AppendLine($"Room: #{Room.Name}");
+            sb.AppendLine($"Timestamp: {Timestamp}");
+            sb.Append($"Room: {Room.Name}");
 
             return sb.ToString();
         }

@@ -96,7 +96,7 @@ namespace AsyncTwitch.Models
             sb.AppendLine($"Follower Only Mode: {FollowersOnly}");
             sb.AppendLine($"Slow Mode Timeout: {SlowMode}");
             sb.AppendLine($"Robot9000 Mode: {R9K}");
-            sb.AppendLine($"# of Users: {Users.Count}");
+            sb.Append($"# of Users: {Users.Count}");
 
             return sb.ToString();
         }
