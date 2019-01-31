@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using WebSocketSharp;
 using AsyncTwitch.Models;
-using AsyncTwitch.Handlers;
 
 namespace AsyncTwitch
 {
@@ -17,6 +16,8 @@ namespace AsyncTwitch
         private static System.Random _random = new System.Random();
 
         public static Dictionary<string, Models.RoomState> RoomStates = new Dictionary<string, Models.RoomState>();
+
+        private static Dictionary<string, Action<RawMessage>> _handlers = new Dictionary<string, Action<RawMessage>>();
 
         #region Events
 
@@ -39,6 +40,9 @@ namespace AsyncTwitch
             Instance = this;
             DontDestroyOnLoad(this);
             Plugin.Debug("Created AsyncTwitch GameObject");
+
+            _handlers.Add("PRIVMSG", Handlers.PRIVMSG);
+            _handlers.Add("ROOMSTATE", Handlers.ROOMSTATE);
 
             _ws = new WebSocket("wss://irc-ws.chat.twitch.tv");
 
@@ -120,18 +124,10 @@ namespace AsyncTwitch
 
             RawMessage rawMessage = Parsers.ParseRawMessage(message);
             
-            switch (rawMessage.Type)
-            {
-                case "PRIVMSG":
-                    PrivMsg.Handle(rawMessage);
-                    return;
-                case "ROOMSTATE":
-                    Handlers.RoomState.Handle(rawMessage);
-                    return;
-                default:
+            if (_handlers.ContainsKey(rawMessage.Type))
+                _handlers[rawMessage.Type]?.Invoke(rawMessage);
+            else
                     Plugin.Debug($"Unhandled message: {message}");
-                    break;
-            }
         }
     }
 }

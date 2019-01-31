@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AsyncTwitch;
 using AsyncTwitch.Models;
 
-namespace AsyncTwitch.Handlers
+namespace AsyncTwitch
 {
-    internal static class PrivMsg
+    internal static class Handlers
     {
-        public static void Handle(RawMessage rawMessage)
+        public static void PRIVMSG(RawMessage rawMessage)
         {
             TwitchMessage message = Parsers.ParseTwitchMessage(rawMessage.Message);
             TwitchConnection.OnMessage?.Invoke(TwitchConnection.Instance, message);
+        }
+
+        public static void ROOMSTATE(RawMessage rawMessage)
+        {
+
         }
     }
 }
