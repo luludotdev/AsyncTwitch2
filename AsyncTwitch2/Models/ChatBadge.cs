@@ -16,9 +16,9 @@ namespace AsyncTwitch.Models
         /// <summary>
         /// Badge Version
         /// </summary>
-        public int Version;
+        public short Version;
 
-        public ChatBadge(string _name, int _version)
+        public ChatBadge(string _name, short _version)
         {
             Name = _name;
             Version = _version;
@@ -30,7 +30,7 @@ namespace AsyncTwitch.Models
 
             sb.AppendLine("-- Twitch Chat Badge --");
             sb.AppendLine($"Name: {Name}");
-            sb.AppendLine($"Version: {Version}");
+            sb.Append($"Version: {Version}");
 
             return sb.ToString();
         }
