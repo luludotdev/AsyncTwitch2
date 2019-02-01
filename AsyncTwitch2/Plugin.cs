@@ -22,7 +22,7 @@ namespace AsyncTwitch
         public static void Debug(object data)
         {
 #if DEBUG
-            Console.WriteLine($"[{PluginName}] {data}");
+            Console.WriteLine($"[{PluginName} DEBUG] {data}");
 #endif
         }
         #endregion
