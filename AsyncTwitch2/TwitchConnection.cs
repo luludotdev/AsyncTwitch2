@@ -24,6 +24,7 @@ namespace AsyncTwitch
         public static UnityAction<TwitchConnection> OnConnected;
         public static UnityAction<TwitchConnection, TwitchMessage> OnMessage;
         public static UnityAction<TwitchConnection, string> OnRawMessage;
+        public static UnityAction<TwitchConnection, RoomState> OnRoomStateChange;
 
         #endregion
 

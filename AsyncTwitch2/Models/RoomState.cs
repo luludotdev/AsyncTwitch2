@@ -43,7 +43,7 @@ namespace AsyncTwitch.Models
         /// <summary>
         /// Number of seconds a user must wait between sending messages.
         /// </summary>
-        public int SlowMode;
+        public ushort SlowMode;
 
         /// <summary>
         /// Whether this room has Robot9000 Mode enabled.
@@ -55,7 +55,20 @@ namespace AsyncTwitch.Models
         /// </summary>
         public List<ChatUser> Users;
 
-        public RoomState(string _name, string _roomID, string _language, bool _emoteOnly, bool _subsOnly, int _followersOnly, int _slowMode, bool _r9k)
+        public RoomState(string _name)
+        {
+            Name = _name;
+            ID = "";
+            Language = "";
+            EmoteOnly = false;
+            SubsOnly = false;
+            FollowersOnly = -1;
+            SlowMode = 0;
+            R9K = false;
+            Users = new List<ChatUser>();
+        }
+
+        public RoomState(string _name, string _roomID, string _language, bool _emoteOnly, bool _subsOnly, int _followersOnly, ushort _slowMode, bool _r9k)
         {
             Name = _name;
             ID = _roomID;
@@ -68,7 +81,7 @@ namespace AsyncTwitch.Models
             Users = new List<ChatUser>();
         }
 
-        public RoomState(string _name, string _roomID, string _language, bool _emoteOnly, bool _subsOnly, int _followersOnly, int _slowMode, bool _r9k, List<ChatUser> _users)
+        public RoomState(string _name, string _roomID, string _language, bool _emoteOnly, bool _subsOnly, int _followersOnly, ushort _slowMode, bool _r9k, List<ChatUser> _users)
         {
             Name = _name;
             ID = _roomID;
