@@ -14,5 +14,10 @@
             ChannelName = _channelName;
             Message = _message;
         }
+
+        public override string ToString()
+        {
+            return Message;
+        }
     }
 }
